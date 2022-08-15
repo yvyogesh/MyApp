@@ -1,12 +1,22 @@
 package main
 
 import (
+	"MyApp/backend/m/controllers"
+	"MyApp/backend/m/initializers"
+
 	"github.com/gin-gonic/gin"
 )
+
+func init() {
+	initializers.LoadEnvVeriables()
+	initializers.ConnectToDB()
+}
 
 func main() {
 	r := gin.Default()
 	r.GET("/", home)
+	r.GET("/users", controllers.GetUsers)
+	r.POST("/user", controllers.CreateUser)
 	r.Run()
 }
 
